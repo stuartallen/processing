@@ -8,6 +8,8 @@ int birdy = 0;
 int score = 0;
 int bars = 0;
 int gameover = 0;
+int restartx = -100;
+int restarty = -100;
 void setup() {
   size(1000, 400);
 }
@@ -45,6 +47,12 @@ void draw() {
   rectY, 
   50, 
   200);
+  // restart button
+  fill(0,255,255,255);
+  rect(restartx,
+       restarty,
+       100,
+       100);
   //integers
   rectx = width - x;
   birdx = mouseX;
@@ -73,12 +81,29 @@ void draw() {
     rectY = (int)(random(height/4));
   }
   if(intersect(birdx,20,rectx,50) && intersect(birdy,20,rectY,200)) {
-    println("GAME OVER score:" + (score + (bars * 100)) + " Bars Survived:" + bars);
+    println("GAME OVER score:" + (score + (bars * 100)) + " Bars Survived:" + bars + " Press Blue Button To Restart");
     gameover = 1;
+    restartx = 0;
+    restarty = height - 100;
   }
   if(intersect(birdx,10,rectx,10) && (birdy != rectY) && (gameover == 0)) {
     bars = bars + 1;
     print("+ 100                                                                           ");
+  }
+  if(intersect(restartx,100,birdx,20) && intersect(restarty,100,birdy,20)) {
+    print("restarting                                                                      ");
+    int i = 0;
+        x = 0;
+        cloud = 0;
+        rectx = 0;
+        rectY = 200;
+        birdx = 0;
+        birdy = 0;
+        score = 0;
+        bars = 0;
+        gameover = 0;
+        restartx = -100;
+        restarty = -100;
   }
 }
 
